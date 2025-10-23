@@ -1,0 +1,35 @@
+
+<div *ngIf="!series || series.length === 0">Cargando series o no hay series disponibles.</div>
+
+<div class="container">
+	<div class="list" *ngIf="series && series.length > 0" style="float:left; width:45%;">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Channel</th>
+					<th>Seasons</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let s of series; index as i" (click)="select(s)" [class.active]="selected?.id === s.id" style="cursor:pointer;">
+					<td>{{ i + 1 }}</td>
+					<td>{{ s.name }}</td>
+					<td>{{ s.channel }}</td>
+					<td>{{ s.seasons }}</td>
+				</tr>
+			</tbody>
+		</table>
+			<div class="average" style="margin-top:8px; font-weight:600;">Seasons average: {{ seasonsAverage() }}</div>
+	</div>
+
+	<div class="detail" style="float:right; width:50%;" *ngIf="selected">
+		<h2>{{ selected.name }}</h2>
+		<img *ngIf="selected.poster" [src]="selected.poster" alt="{{ selected.name }} poster" style="max-width:250px;" />
+		<p>{{ selected.description }}</p>
+		<p *ngIf="selected.webpage"><a [href]="selected.webpage" target="_blank">Ver página</a></p>
+	</div>
+
+	<div style="clear:both"></div>
+</div>
